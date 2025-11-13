@@ -194,7 +194,7 @@ for i in range(0, 1):
         "signal_B": valuesB
     }
     timestamp = strftime("%Y%m%d-%H%M%S")
-    with open("ps2000Examples/myApp/signals/signal_data_" + timestamp + ".json", 'w') as f:
+    with open("ps2000Examples/myApp/__pycache__/signals/signal_data_" + timestamp + ".json", 'w') as f:
         json.dump(data, f)
     
 # Close device
