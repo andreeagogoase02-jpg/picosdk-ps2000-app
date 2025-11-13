@@ -1,0 +1,23 @@
+# .gitignore file for picosdk-ps6000a-matlab-instrument-driver
+# Untracked files/folders to ignore.
+
+# Windows platforms
+
+**/*.obj
+**/*.lib
+**/*.exp
+**/*.bak
+
+# All platforms
+
+**/*.h
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
