@@ -1,21 +1,22 @@
+# Import modules
 from time import time_ns, strftime
 from ctypes import POINTER, c_int16, c_uint32
 from collections import Counter
 from itertools import takewhile
+from enum import IntEnum
+import json
 
+# Import packages
 import matplotlib.pyplot as plt
 import numpy as np
-
 from scipy.signal import correlate, find_peaks, peak_widths, peak_prominences
 from scipy import ndimage
 
+# Import picosdk
 from picosdk.ps2000 import ps2000
 from picosdk.functions import assert_pico2000_ok
 from picosdk.ctypes_wrapper import C_CALLBACK_FUNCTION_FACTORY
 
-from enum import IntEnum
-
-import json
 
 
 class TriggerDirection(IntEnum) :
