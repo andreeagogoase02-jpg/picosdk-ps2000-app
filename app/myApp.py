@@ -1,6 +1,5 @@
 from time import time_ns, strftime
 from ctypes import POINTER, c_int16, c_uint32
-from statistics import multimode, median
 from collections import Counter
 from itertools import takewhile
 
@@ -8,8 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from scipy.signal import correlate, find_peaks, peak_widths, peak_prominences
-from scipy import stats, ndimage
-from functools import partial
+from scipy import ndimage
 
 from picosdk.ps2000 import ps2000
 from picosdk.functions import assert_pico2000_ok
@@ -157,7 +155,7 @@ class StreamingDevice:
 
 
 # Setup
-first_edge = 'A' # A or B, depending on the direction of rotaion
+first_edge = 'A' # A or B, depending on the direction of rotation
 expected_pulses = 8 # how many pulses should the encoder have in one turn / second
 expected_period = 1 / expected_pulses # seconds
 expected_pulse_width = expected_period * 0.4 # seconds
