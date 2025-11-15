@@ -193,7 +193,7 @@ for i in range(0, 1):
         "signal_B": valuesB
     }
     timestamp = strftime("%Y%m%d-%H%M%S")
-    with open("ps2000Examples/myApp/__pycache__/signals/signal_data_" + timestamp + ".json", 'w') as f:
+    with open("./app/__pycache__/signals/signal_data_" + timestamp + ".json", 'w') as f:
         json.dump(data, f)
     
 # Close device
@@ -295,36 +295,36 @@ if True:
     print('Widths of B [ms]: \n{}'.format(1000 * samples_to_seconds(B_peak_widths[0])))
     print(A_peak_widths[2:])
 
-
     A_bounces = np.empty((3, A_nr_peaks * 2))
-    A_bounces[1][0] = np.where(A_filtrd[:int(A_peak_widths[2][0])] > A_lower_threshold)[0][0]
-    A_bounces[2][0] = A_peak_widths[2][0]
-    for x in range(0, A_nr_peaks - 1):
-        A_bounces[1][2 * x + 1] = A_peak_widths[3][x]
-        A_bounces[2][2 * x + 1] = A_valley_widths[2][x]
-    for x in range(1, A_nr_peaks):
-        A_bounces[1][2 * x] = A_valley_widths[3][x - 1]
-        A_bounces[2][2 * x] = A_peak_widths[2][x]
-    A_bounces[1][A_nr_peaks * 2 - 1] = A_peak_widths[3][A_nr_peaks - 1]
-    A_bounces[2][A_nr_peaks * 2 - 1] = int(A_peak_widths[3][A_nr_peaks - 1]) + np.where(A_filtrd[int(A_peak_widths[3][A_nr_peaks - 1]):] > A_lower_threshold)[0][-1]
-    for x in range(0, A_nr_peaks * 2):
-        A_bounces[0][x] = A_bounces[2][x] - A_bounces[1][x]
+    if A_nr_peaks > 0:
+        A_bounces[1][0] = np.where(A_filtrd[:int(A_peak_widths[2][0])] > A_lower_threshold)[0][0]
+        A_bounces[2][0] = A_peak_widths[2][0]
+        for x in range(0, A_nr_peaks - 1):
+            A_bounces[1][2 * x + 1] = A_peak_widths[3][x]
+            A_bounces[2][2 * x + 1] = A_valley_widths[2][x]
+        for x in range(1, A_nr_peaks):
+            A_bounces[1][2 * x] = A_valley_widths[3][x - 1]
+            A_bounces[2][2 * x] = A_peak_widths[2][x]
+        A_bounces[1][A_nr_peaks * 2 - 1] = A_peak_widths[3][A_nr_peaks - 1]
+        A_bounces[2][A_nr_peaks * 2 - 1] = int(A_peak_widths[3][A_nr_peaks - 1]) + np.where(A_filtrd[int(A_peak_widths[3][A_nr_peaks - 1]):] > A_lower_threshold)[0][-1]
+        for x in range(0, A_nr_peaks * 2):
+            A_bounces[0][x] = A_bounces[2][x] - A_bounces[1][x]
 
-    B_bounces = np.empty((3, expected_pulses * 2))
 
     B_bounces = np.empty((3, B_nr_peaks * 2))
-    B_bounces[1][0] = np.where(B_filtrd[:int(B_peak_widths[2][0])] > B_lower_threshold)[0][0]
-    B_bounces[2][0] = B_peak_widths[2][0]
-    for x in range(0, B_nr_peaks - 1):
-        B_bounces[1][2 * x + 1] = B_peak_widths[3][x]
-        B_bounces[2][2 * x + 1] = B_valley_widths[2][x]
-    for x in range(1, B_nr_peaks):
-        B_bounces[1][2 * x] = B_valley_widths[3][x - 1]
-        B_bounces[2][2 * x] = B_peak_widths[2][x]
-    B_bounces[1][B_nr_peaks * 2 - 1] = B_peak_widths[3][B_nr_peaks - 1]
-    B_bounces[2][B_nr_peaks * 2 - 1] = int(B_peak_widths[3][B_nr_peaks - 1]) + np.where(B_filtrd[int(B_peak_widths[3][B_nr_peaks - 1]):] > B_lower_threshold)[0][-1]
-    for x in range(0, B_nr_peaks * 2):
-        B_bounces[0][x] = B_bounces[2][x] - B_bounces[1][x]
+    if B_nr_peaks > 0:
+        B_bounces[1][0] = np.where(B_filtrd[:int(B_peak_widths[2][0])] > B_lower_threshold)[0][0]
+        B_bounces[2][0] = B_peak_widths[2][0]
+        for x in range(0, B_nr_peaks - 1):
+            B_bounces[1][2 * x + 1] = B_peak_widths[3][x]
+            B_bounces[2][2 * x + 1] = B_valley_widths[2][x]
+        for x in range(1, B_nr_peaks):
+            B_bounces[1][2 * x] = B_valley_widths[3][x - 1]
+            B_bounces[2][2 * x] = B_peak_widths[2][x]
+        B_bounces[1][B_nr_peaks * 2 - 1] = B_peak_widths[3][B_nr_peaks - 1]
+        B_bounces[2][B_nr_peaks * 2 - 1] = int(B_peak_widths[3][B_nr_peaks - 1]) + np.where(B_filtrd[int(B_peak_widths[3][B_nr_peaks - 1]):] > B_lower_threshold)[0][-1]
+        for x in range(0, B_nr_peaks * 2):
+            B_bounces[0][x] = B_bounces[2][x] - B_bounces[1][x]
 
     print("A Bounces in samples:")
     print(A_bounces)
