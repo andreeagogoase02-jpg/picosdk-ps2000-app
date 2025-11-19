@@ -93,9 +93,9 @@ def handle_request(c):
             timestamp = strftime("%Y%m%d-%H%M%S")
             with open("./app/__pycache__/signals/signal_data_" + timestamp + ".json", 'w') as f:
                 json.dump(data, f)
-
+            results = data['signal_A'], data['signal_B']
             c.send("ACQUISITION COMPLETED".encode())
-            c.send(data.encode())
+            c.send(results.encode())
 
             if True:
 
@@ -368,7 +368,7 @@ def handle_request(c):
 
                 plt.show()
         except:
-            response = "ERROR STARTING ACQUISITION DUE TO MISSING DATA"
+            response = f"[+] ERROR STARTING ACQUISITION DUE TO MISSING DATA"
             c.send(response.encode())
         
 
@@ -531,7 +531,7 @@ while True:
     
 
     
-    # Close device
+    #Close device
     #picoDevice.close()
 
 
